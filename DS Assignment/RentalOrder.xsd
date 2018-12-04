@@ -1,0 +1,45 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://sw.gmit.ie/ds/" targetNamespace="http://sw.gmit.ie/ds/" elementFormDefault="qualified">
+  <xsd:element name='comment' type='xsd:string'/>
+
+  <xsd:element name='rentalOrder' type='gmit:RentalOrder'/>
+  
+   <xsd:complexType name='RentalOrder'>
+    <xsd:sequence>
+      <xsd:element name='pickUpDate' type='xsd:date'/>
+      <xsd:element name='dropOffDate' type='xsd:date'/>
+      <xsd:element name='vehicle'  type='gmit:Vehicle'/>
+	  <xsd:element name='customer'  type='gmit:Customer'/>
+    </xsd:sequence>
+	<xsd:attribute name='rental_SID' type='xsd:string' use='required'/>
+    <xsd:attribute name='orderDate' type='xsd:date' use='required'/>
+  </xsd:complexType>
+  
+    <xsd:complexType name='Vehicle'>
+    <xsd:sequence>
+      <xsd:element name='vehiclePlate'   type='xsd:string'/>
+      <xsd:element name='availableIndicator' type='xsd:int'/>
+      <xsd:element name='model'   type='xsd:string'/>
+    </xsd:sequence>
+    <xsd:attribute name='vehicle_SID' type='xsd:string'/>
+  </xsd:complexType>
+  
+    <xsd:complexType name='Customer'>
+    <xsd:sequence>
+      <xsd:element name='firstName'   type='xsd:string'/>
+      <xsd:element name='lastName' type='xsd:string'/>
+      <xsd:element name='address'   type='gmit:Address'/>
+    </xsd:sequence>
+    <xsd:attribute name='customer_SID' type='xsd:string'/>
+  </xsd:complexType>
+  
+   <xsd:complexType name='Address'>
+    <xsd:sequence>
+      <xsd:element name='street' type='xsd:string'/>
+      <xsd:element name='city'   type='xsd:string'/>
+      <xsd:element name='county'  type='xsd:string'/>
+    </xsd:sequence>
+    <xsd:attribute name='address_SID' type='xsd:string'/>
+  </xsd:complexType>
+
+
+</xsd:schema>
