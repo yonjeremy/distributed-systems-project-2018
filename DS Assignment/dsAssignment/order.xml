@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rentalOrder rental_SID="4444" orderDate="15468-04-30+01:00" xmlns:ns2="http://sw.gmit.ie/ds/">
+    <ns2:pickUpDate>15468-04-30+01:00</ns2:pickUpDate>
+    <ns2:dropOffDate>15468-04-30+01:00</ns2:dropOffDate>
+    <ns2:vehicle vehicle_SID="33333">
+        <ns2:vehiclePlate>ABCDE</ns2:vehiclePlate>
+        <ns2:availableIndicator>1</ns2:availableIndicator>
+        <ns2:model>TOYOTA</ns2:model>
+    </ns2:vehicle>
+    <ns2:customer customer_SID="22222">
+        <ns2:firstName>tester</ns2:firstName>
+        <ns2:lastName>testing</ns2:lastName>
+        <ns2:address address_SID="11111">
+            <ns2:street>14 Dublin Rd</ns2:street>
+            <ns2:city>galwaycity</ns2:city>
+            <ns2:county>galway</ns2:county>
+        </ns2:address>
+    </ns2:customer>
+</rentalOrder>
