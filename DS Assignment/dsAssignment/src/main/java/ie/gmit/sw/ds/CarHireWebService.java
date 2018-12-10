@@ -5,8 +5,12 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -22,7 +26,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import ie.gmit.sw.RMI.CarHireDB;
+import ie.gmit.sw.model.Customer;
 import ie.gmit.sw.model.RentalOrder;
+import ie.gmit.sw.model.Vehicle;
 
 /* 
    This class handles requests from clients using REST.
@@ -47,7 +53,6 @@ public class CarHireWebService {
 		super();
 		try {
 			this.cs = (CarHireDB) Naming.lookup("rmi://localhost:1099/carHireDB");
-			System.out.println("heyp");
 		//	requested  = cs.getBooking(bookingID);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -81,12 +86,35 @@ public class CarHireWebService {
 		return requested;		
 	}
 	
+	// web service receiving get req --> delegate the db stuff to rmi object
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	/* Note how this method has been annotated to produce both XML and JSON
+	 * The response format which is sent will depend on the Accept: header field in the HTTP request from the client 
+	 */
+	@Path("/read")
+	public List<RentalOrder> getOrderJson() throws RemoteException {
+		List<RentalOrder> requested = null;
+		
+		try {
+			requested  = cs.getAllBookings();
+			System.out.println(requested.toString());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return requested;		
+	}
+	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/create")
-	public Response createRentalOrder(@PathParam("value") String value, RentalOrder toCreate) throws SQLException {
+	public Response createRentalOrder(RentalOrder toCreate) throws SQLException {
 		boolean success = false;
 		
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		toCreate.setOrderDate(date);
 		// try add the booking to the DB using RM
 		try {
 			success = cs.addBooking(toCreate);
@@ -101,7 +129,7 @@ public class CarHireWebService {
 
 		}
 		else {
-			String msg = "The booking  " + value + " already exists";
+			String msg = "The booking  already exists";
 			return Response.status(409).entity(msg).build();
 				}
 	}
@@ -131,18 +159,18 @@ public class CarHireWebService {
 	}
 	
 	@DELETE
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.TEXT_PLAIN)
 	@Path("/delete/{value}")
 	public Response deleteOrder(@PathParam("value") String bookingID) throws SQLException {
 		boolean success = false;
-		// try add the booking to the DB using RMI
-//		try {
-////			success = cs.deleteBooking(bookingID);
-//			
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//		
+//		 try add the booking to the DB using RMI
+		try {
+			success = cs.deleteBooking(bookingID);
+			
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		success = true;
 		if(success) {
 			String msg = "The order number " + bookingID + " was deleted!";

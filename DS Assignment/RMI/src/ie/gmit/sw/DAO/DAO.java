@@ -9,17 +9,21 @@ import java.util.Properties;
 
 import javax.xml.bind.JAXBException;
 
+import ie.gmit.sw.model.Customer;
 import ie.gmit.sw.model.RentalOrder;
+import ie.gmit.sw.model.Vehicle;
 
 public class DAO implements BookingCRUD {
 
 public DAO(CreateRentalOrder createOp, DeleteRentalOrder deleteOp, UpdateRentalOrder updateOp,
-			GetAllRentalOrders getAllOp, Connection conn) {
+			GetAllRentalOrders getAllOp, 
+			Connection conn) {
 		super();
 		this.createOp = createOp;
 		this.deleteOp = deleteOp;
 		this.updateOp = updateOp;
 		this.getAllOp = getAllOp;
+		
 		this.conn = conn;
 	}
 
@@ -29,7 +33,7 @@ public DAO(CreateRentalOrder createOp, DeleteRentalOrder deleteOp, UpdateRentalO
 	private DeleteRentalOrder deleteOp;
 	private UpdateRentalOrder updateOp;
 	private GetAllRentalOrders getAllOp;
-
+	
 	/** The name of the MySQL account to use (or empty for anonymous) */
 	private final String userName = "root";
 
@@ -56,6 +60,8 @@ public DAO(CreateRentalOrder createOp, DeleteRentalOrder deleteOp, UpdateRentalO
 		this.deleteOp = new DeleteRentalOrder();
 		this.updateOp = new UpdateRentalOrder();
 		this.getAllOp = new GetAllRentalOrders();
+		
+
 		// get connection
 		this.conn = getConnection();
 	}
@@ -114,5 +120,7 @@ public DAO(CreateRentalOrder createOp, DeleteRentalOrder deleteOp, UpdateRentalO
 		}
 		return false;
 	}
+
+
 
 }

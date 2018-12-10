@@ -21,10 +21,11 @@ public class UpdateRentalOrder {
 		// create a Statement from the connection
 		PreparedStatement preparedStatement = conn.prepareStatement(updateBooking);
 
-		preparedStatement.setDate(1, Date.valueOf(ro.getPickUpDate().toString()));
-		preparedStatement.setDate(2, Date.valueOf(ro.getDropOffDate().toString()));
-		preparedStatement.setDate(3, Date.valueOf(ro.getVehicleSID().getVehicleSID().toString()));
-		preparedStatement.setString(4, ro.getRentalSID());
+		preparedStatement.setDate(1, ro.getPickUpDate());
+		preparedStatement.setDate(2, ro.getDropOffDate());
+		preparedStatement.setString(3, ro.getVehicleSID().getVehicleSID());
+		preparedStatement.setString(4, (ro.getCustomerSID().getCustomerSID()));
+		preparedStatement.setString(5, ro.getRentalSID());
 
 		// execute insert SQL statement
 		int rowsaffected = preparedStatement.executeUpdate();

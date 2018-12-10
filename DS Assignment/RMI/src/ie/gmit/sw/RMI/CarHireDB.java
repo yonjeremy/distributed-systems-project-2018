@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ie.gmit.sw.model.Customer;
 import ie.gmit.sw.model.RentalOrder;
+import ie.gmit.sw.model.Vehicle;
 
 public interface CarHireDB  extends Remote {
 	
@@ -22,5 +24,5 @@ public interface CarHireDB  extends Remote {
 	// UPDATE
 	public boolean updateBooking(RentalOrder booking) throws RemoteException;
 
-	
+
 }

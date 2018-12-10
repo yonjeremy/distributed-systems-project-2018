@@ -8,7 +8,7 @@
 <link href="/css/style.css" rel="stylesheet" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Rental Orders</title>
+<title>Car Rental Services</title>
 </head>
 <body>
 	<h1>Rental Orders</h1>
@@ -19,7 +19,15 @@
 			<th>Pick Up Date</th>
 			<th>Drop Off Date</th>
 			<th>Vehicle_SID</th>
-			<th>Customer_SID</th>
+			<th>vehiclePlate</th>
+			<th>availableIndicator</th>
+			<th>model</th>
+			<th>customerSID</th>
+			<th>firstName</th>
+			<th>lastName</th>
+			<th>street</th>
+			<th>city</th>
+			<th>county</th>
 			
 		</tr>
 
@@ -31,7 +39,18 @@
 				<td>${orders.pickUpDate}</td>
 				<td>${orders.dropOffDate}</td>
 				<td>${orders.vehicleSID.vehicleSID}</td>
+				<td>${orders.vehicleSID.vehiclePlate}</td>
+				<td>${orders.vehicleSID.availableIndicator}</td>
+				<td>${orders.vehicleSID.model}</td>
 				<td>${orders.customerSID.customerSID}</td>
+				<td>${orders.customerSID.firstName}</td>
+				<td>${orders.customerSID.lastName}</td>
+				<td>${orders.customerSID.addressSID.street}</td>
+				<td>${orders.customerSID.addressSID.city}</td>
+				<td>${orders.customerSID.addressSID.county}</td>
+				
+				
+				
 				
 			</tr>
 

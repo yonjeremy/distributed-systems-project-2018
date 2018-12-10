@@ -6,11 +6,14 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
+import ie.gmit.sw.model.Customer;
 import ie.gmit.sw.model.RentalOrder;
+import ie.gmit.sw.model.Vehicle;
 
 public interface BookingCRUD {
 	public boolean deleteOrder( String bookingID) throws SQLException ;
 	public boolean createOrder(RentalOrder ro) throws SQLException;
 	public List<RentalOrder> getAll() throws JAXBException, IOException ;
 	public boolean updateOrder(RentalOrder ro) throws SQLException ;
+	
 }

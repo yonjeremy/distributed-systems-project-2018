@@ -14,7 +14,9 @@ import ie.gmit.sw.DAO.CreateRentalOrder;
 import ie.gmit.sw.DAO.DAO;
 import ie.gmit.sw.DAO.DeleteRentalOrder;
 import ie.gmit.sw.DAO.GetAllRentalOrders;
+import ie.gmit.sw.model.Customer;
 import ie.gmit.sw.model.RentalOrder;
+import ie.gmit.sw.model.Vehicle;
 
 // this is my actual RMI object performing operations on the DB
 public class CarHireDBImpl extends UnicastRemoteObject implements CarHireDB, Serializable {
@@ -66,5 +68,7 @@ public class CarHireDBImpl extends UnicastRemoteObject implements CarHireDB, Ser
 		}
 		return false;
 	}
+
+
 
 }

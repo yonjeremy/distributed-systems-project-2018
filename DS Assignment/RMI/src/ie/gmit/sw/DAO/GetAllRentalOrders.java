@@ -30,9 +30,7 @@ public class GetAllRentalOrders {
 		jc = JAXBContext.newInstance("ie.gmit.sw.model");
 		
 		ObjectFactory objFactory = new ObjectFactory();
-		Address a1 = new Address();
-		Customer c1 = new Customer();
-		Vehicle v1 = new Vehicle();
+
 		
 		List<RentalOrder> list = new ArrayList<RentalOrder>();
 
@@ -51,7 +49,9 @@ public class GetAllRentalOrders {
 			while (rs.next()) {
 				
 				RentalOrder r1 = new RentalOrder();
-
+				Address a1 = new Address();
+				Customer c1 = new Customer();
+				Vehicle v1 = new Vehicle();
 				
 				r1.setOrderDate(rs.getDate("orderDate"));
 				r1.setPickUpDate(rs.getDate("pickUpDate"));
@@ -83,7 +83,7 @@ public class GetAllRentalOrders {
 
 
 
-System.out.println(list.toString());
+				System.out.println(list.toString());
 
 			rs.close();
 		} catch (Exception e) {
