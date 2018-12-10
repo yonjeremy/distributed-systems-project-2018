@@ -8,6 +8,9 @@
 
 package ie.gmit.sw.model;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -50,14 +53,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "vehicleSID",
     "customerSID"
 })
-public class RentalOrder {
+public class RentalOrder implements Serializable{
 
     @XmlElement(namespace = "http://sw.gmit.ie/model/", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar pickUpDate;
+    protected Date pickUpDate;
     @XmlElement(namespace = "http://sw.gmit.ie/model/", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dropOffDate;
+    protected Date dropOffDate;
     @XmlElement(name = "vehicle_SID", namespace = "http://sw.gmit.ie/model/", required = true)
     protected Vehicle vehicleSID;
     @XmlElement(name = "customer_SID", namespace = "http://sw.gmit.ie/model/", required = true)
@@ -66,9 +69,26 @@ public class RentalOrder {
     protected String rentalSID;
     @XmlAttribute(name = "orderDate", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar orderDate;
+    protected Date orderDate;
 
-    /**
+    
+    public RentalOrder(Date pickUpDate, Date dropOffDate, Vehicle vehicleSID,
+			Customer customerSID, String rentalSID, Date orderDate) {
+		super();
+		this.pickUpDate = pickUpDate;
+		this.dropOffDate = dropOffDate;
+		this.vehicleSID = vehicleSID;
+		this.customerSID = customerSID;
+		this.rentalSID = rentalSID;
+		this.orderDate = orderDate;
+	}
+
+	public RentalOrder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Gets the value of the pickUpDate property.
      * 
      * @return
@@ -76,20 +96,20 @@ public class RentalOrder {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getPickUpDate() {
+    public Date getPickUpDate() {
         return pickUpDate;
     }
 
     /**
      * Sets the value of the pickUpDate property.
      * 
-     * @param value
+     * @param date
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setPickUpDate(XMLGregorianCalendar value) {
-        this.pickUpDate = value;
+    public void setPickUpDate(Date date) {
+        this.pickUpDate = date;
     }
 
     /**
@@ -100,20 +120,20 @@ public class RentalOrder {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDropOffDate() {
+    public Date getDropOffDate() {
         return dropOffDate;
     }
 
     /**
      * Sets the value of the dropOffDate property.
      * 
-     * @param value
+     * @param date
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDropOffDate(XMLGregorianCalendar value) {
-        this.dropOffDate = value;
+    public void setDropOffDate(Date date) {
+        this.dropOffDate = date;
     }
 
     /**
@@ -196,20 +216,20 @@ public class RentalOrder {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
     /**
      * Sets the value of the orderDate property.
      * 
-     * @param value
+     * @param date
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setOrderDate(XMLGregorianCalendar value) {
-        this.orderDate = value;
+    public void setOrderDate(Date date) {
+        this.orderDate = date;
     }
 
 }

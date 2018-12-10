@@ -3,11 +3,13 @@
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="javax.inject.Singleton"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="ie.gmit.sw.model.ObjectFactory"/>
 <fullyQualifiedTypeName name="ie.gmit.sw.model.Address"/>
 <fullyQualifiedTypeName name="ie.gmit.sw.DAO.GetRentalOrder"/>
 <fullyQualifiedTypeName name="ie.gmit.sw.model.RentalOrder"/>
 <fullyQualifiedTypeName name="ie.gmit.sw.RMI.CarHireDB"/>
 <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlRootElement"/>
+<fullyQualifiedTypeName name="ie.gmit.sw.DAO.GetAllRentalOrders"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

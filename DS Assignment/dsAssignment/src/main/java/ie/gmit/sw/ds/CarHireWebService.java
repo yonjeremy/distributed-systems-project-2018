@@ -1,8 +1,13 @@
 package ie.gmit.sw.ds;
 
+import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
@@ -27,51 +32,59 @@ import ie.gmit.sw.model.RentalOrder;
 
 @Singleton
 @Path("/bookings")
-public class CarHireWebService  {
+public class CarHireWebService {
 	
-	//Ask the registry running on localhost and listening in port 1099 for the instannce of
-    // the MessageService object that is bound to the RMI registry with the name howdayService.
+	// Ask the registry running on localhost and listening in port 1099 for access to instance of
+    // the MessageService object that is bound to the RMI registry .
 			
+	/**
+	 * 
+	 */
 	private CarHireDB  cs;
-
 	private ArrayList<RentalOrder> orders = new ArrayList<RentalOrder>();
 	
 	public CarHireWebService() throws Exception {
 		super();
-		cs = (CarHireDB) Naming.lookup("rmi://localhost:1099/carHireDB");
-	}
-//	
-//    @GET
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public String getIt() {
-//        return "Got it!";
-//    }
-	
-	// web service receiving get req --> delegate the db stuff to rmi object
-	@GET
-	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
-	@Path("/{value}")
-	/* Note how this method has been annotated to produce both XML and JSON
-	 * The response format which is sent will depend on the Accept: header field in the HTTP request from the client 
-	 */
-	public RentalOrder getOrder(@PathParam("value") String bookingID) {
-		RentalOrder requested = null;
 		try {
-			requested  = cs.getBooking(bookingID);
+			this.cs = (CarHireDB) Naming.lookup("rmi://localhost:1099/carHireDB");
+			System.out.println("heyp");
+		//	requested  = cs.getBooking(bookingID);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+
+	// web service receiving get req --> delegate the db stuff to rmi object
+	@GET
+	@Produces({MediaType.APPLICATION_XML})
+	/* Note how this method has been annotated to produce both XML and JSON
+	 * The response format which is sent will depend on the Accept: header field in the HTTP request from the client 
+	 */
+	@Path("/read")
+	public List<RentalOrder> getOrder() throws RemoteException {
+		List<RentalOrder> requested = null;
 		
+		try {
+			requested  = cs.getAllBookings();
+			System.out.println(requested.toString());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 
 		return requested;		
 	}
 	
 	@POST
-	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/{value}")
-	public Response createRentalOrder(@PathParam("value") String value, RentalOrder toCreate) {
+	@Path("/create")
+	public Response createRentalOrder(@PathParam("value") String value, RentalOrder toCreate) throws SQLException {
 		boolean success = false;
 		
 		// try add the booking to the DB using RM
@@ -96,7 +109,7 @@ public class CarHireWebService  {
 	@PUT
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/{value}")
+	@Path("/update")
 	public Response updateOrder(@PathParam("value") String value, RentalOrder updated) {
 		boolean success = false;
 		
@@ -118,23 +131,25 @@ public class CarHireWebService  {
 	}
 	
 	@DELETE
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{value}")
-	public Response deleteOrder(@PathParam("value") String value, RentalOrder toDelete) {
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/delete/{value}")
+	public Response deleteOrder(@PathParam("value") String bookingID) throws SQLException {
 		boolean success = false;
 		// try add the booking to the DB using RMI
-		try {
-			success = cs.deleteBooking(toDelete);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		
+//		try {
+////			success = cs.deleteBooking(bookingID);
+//			
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+//		
+		success = true;
 		if(success) {
-			String msg = "The order number " + value + " was deleted!";
+			String msg = "The order number " + bookingID + " was deleted!";
 			return Response.status(200).entity(msg).build();
 		}
 		else {
-			String msg = "The order number " + value + " does not exist";;
+			String msg = "The order number " + bookingID + " does not exist";;
 			return Response.status(404).entity(msg).build(); // return 404 for resource not found
 		}
 	}

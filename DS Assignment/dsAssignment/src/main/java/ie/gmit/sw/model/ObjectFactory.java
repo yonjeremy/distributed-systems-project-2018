@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -29,7 +31,7 @@ import javax.xml.namespace.QName;
  * 
  */
 @XmlRegistry
-public class ObjectFactory {
+public class ObjectFactory implements Serializable{
 
     private final static QName _Comment_QNAME = new QName("http://sw.gmit.ie/model/", "comment");
     private final static QName _RentalOrder_QNAME = new QName("http://sw.gmit.ie/model/", "rentalOrder");
@@ -40,6 +42,7 @@ public class ObjectFactory {
      */
     public ObjectFactory() {
     }
+    
 
     /**
      * Create an instance of {@link RentalOrder }

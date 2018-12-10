@@ -14,7 +14,7 @@ public class test implements Serializable{
 		CarHireDB  cs;
 		cs = (CarHireDB) Naming.lookup("rmi://localhost:1099/carHireDB");
 		
-		cs.getBooking("4444");
+		cs.getAllBookings();
 
 	}
 }

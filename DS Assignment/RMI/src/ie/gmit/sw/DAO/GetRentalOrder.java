@@ -1,5 +1,6 @@
 package ie.gmit.sw.DAO;
 
+
 import java.io.*;
 import java.util.*;
 import java.math.*;
@@ -20,52 +21,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import ie.gmit.sw.model.*;
 
-public class GetRentalOrder {
-
-	/** The name of the MySQL account to use (or empty for anonymous) */
-	private final String userName = "root";
-
-	/** The password for the MySQL account (or empty for anonymous) */
-	private final String password = "test";
-
-	/** The name of the computer running MySQL */
-	private final String serverName = "localhost";
-
-	/** The port of the MySQL server (default is 3306) */
-	private final int portNumber = 3306;
-
-	/**
-	 * The name of the database we are testing with (this default is installed with
-	 * MySQL)
-	 */
-	private final String dbName = "carrental";
-
-	/**
-	 * Get a new database connection
-	 * 
-	 * @return
-	 * @throws SQLException
-	 */
-	private Connection getConnection() throws SQLException {
-		Connection conn = null;
-		Properties connectionProps = new Properties();
-		connectionProps.put("user", this.userName);
-		connectionProps.put("password", this.password);
-
-		conn = DriverManager.getConnection(
-				"jdbc:mysql://" + this.serverName + ":" + this.portNumber + "/" + this.dbName, connectionProps);
-
-		return conn;
-	}
-
-
+public class GetRentalOrder  {
 
 	public RentalOrder get(String bookingID) throws JAXBException, IOException {
 		JAXBContext jc;
 		
 		jc = JAXBContext.newInstance("ie.gmit.sw.model");
 		
-		ObjectFactory objFactory = new ObjectFactory();
 		Address a1 = new Address();
 		Customer c1 = new Customer();
 		Vehicle v1 = new Vehicle();
@@ -74,7 +36,8 @@ public class GetRentalOrder {
 		// Connect to MySQL
 		Connection conn = null;
 		try {
-			conn = getConnection();
+			DAO config = new DAO();
+			conn = config.getConnection();
 			System.out.println("Connected to database");
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not connect to the database");
@@ -83,10 +46,10 @@ public class GetRentalOrder {
 
 		try {
 
-			GregorianCalendar c = new GregorianCalendar();
-			c.setTime(new Date(System.nanoTime()));
-			XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-
+			Date date = new Date(System.nanoTime());
+			//Timestamp date = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+			
+			
 			String vehicle_SID = null, customer_SID = null, address_SID = null;
 
 			// STEP 4: Execute a query
@@ -94,14 +57,16 @@ public class GetRentalOrder {
 			Statement stmt = conn.createStatement();
 
 			String sql1 = "SELECT *  FROM rentalorder where rental_SID = '" + bookingID + "'";
-
+			System.out.println(sql1);
 			ResultSet rs = stmt.executeQuery(sql1);
 			// STEP 5: Extract data from result set
 			while (rs.next()) {
 				r1.setRentalSID(rs.getString("rental_SID"));
-				r1.setOrderDate(date);
-				r1.setPickUpDate(date);
-				r1.setDropOffDate(date);
+				r1.setOrderDate(rs.getDate("orderDate"));
+				r1.setPickUpDate(rs.getDate("pickUpDate"));
+				r1.setDropOffDate(rs.getDate("dropOffDate"));
+				
+
 
 				vehicle_SID = (rs.getString("vehicle_SID"));
 				customer_SID = (rs.getString("customer_SID"));
@@ -187,10 +152,5 @@ public class GetRentalOrder {
 
 		return r1;
 	}
-
-
-
-
-
 
 }

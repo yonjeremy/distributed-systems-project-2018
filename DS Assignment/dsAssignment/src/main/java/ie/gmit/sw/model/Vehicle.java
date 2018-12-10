@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "availableIndicator",
     "model"
 })
-public class Vehicle {
+public class Vehicle implements Serializable{
 
     @XmlElement(namespace = "http://sw.gmit.ie/model/", required = true)
     protected String vehiclePlate;
@@ -54,7 +56,21 @@ public class Vehicle {
     @XmlAttribute(name = "vehicle_SID")
     protected String vehicleSID;
 
-    /**
+    
+    public Vehicle(String vehiclePlate, int availableIndicator, String model, String vehicleSID) {
+		super();
+		this.vehiclePlate = vehiclePlate;
+		this.availableIndicator = availableIndicator;
+		this.model = model;
+		this.vehicleSID = vehicleSID;
+	}
+
+	public Vehicle() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Gets the value of the vehiclePlate property.
      * 
      * @return

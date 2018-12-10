@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="D:/downloads in D/ds_wk3_DataBindingLab (1)/lib/javax.xml.bind_2.2.12.v201410011542.jar"/>
 	<classpathentry kind="lib" path="D:/downloads in D/ds_wk3_DataBindingLab (1)/lib/jaxb-core_2.2.11.v201407311112.jar"/>
 	<classpathentry kind="lib" path="D:/downloads in D/ds_wk3_DataBindingLab (1)/lib/jaxb-xjc_2.2.11.v201407311112.jar"/>
+	<classpathentry kind="lib" path="D:/downloads in D/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

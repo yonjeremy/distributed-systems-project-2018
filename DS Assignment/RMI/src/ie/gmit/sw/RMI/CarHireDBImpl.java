@@ -1,69 +1,70 @@
 package ie.gmit.sw.RMI;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import ie.gmit.sw.DAO.GetRentalOrder;
+import ie.gmit.sw.DAO.CreateRentalOrder;
+import ie.gmit.sw.DAO.DAO;
+import ie.gmit.sw.DAO.DeleteRentalOrder;
+import ie.gmit.sw.DAO.GetAllRentalOrders;
 import ie.gmit.sw.model.RentalOrder;
 
 // this is my actual RMI object performing operations on the DB
-public class CarHireDBImpl  extends UnicastRemoteObject implements CarHireDB {
+public class CarHireDBImpl extends UnicastRemoteObject implements CarHireDB, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private DAO db;
 
-	public CarHireDBImpl() throws RemoteException  {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public RentalOrder getBooking(String bookingID) throws RemoteException{
-		GetRentalOrder gro = new GetRentalOrder();
-		RentalOrder ro = null;
-
+	public CarHireDBImpl() throws RemoteException {
 		try {
-			ro = gro.get(bookingID);
-		} catch (JAXBException | IOException e) {
-			// TODO Auto-generated catch block
+			this.db = new DAO();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return null;
-	}
-
-
-	@Override
-	public ArrayList<RentalOrder> getAllBookings() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
-	public boolean addBooking(RentalOrder booking) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+	public List<RentalOrder> getAllBookings() throws RemoteException {
+		List<RentalOrder> ro = null;
+		try {
+			System.out.println("about to getall booking..");
+			ro = db.getAll();
+			return ro;
+		} catch (JAXBException | IOException e) {
+			e.printStackTrace();
+		}
+		return ro;
 	}
 
 	@Override
-	public boolean deleteBooking(RentalOrder booking) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addBooking(RentalOrder booking) throws RemoteException, SQLException {
+		System.out.println("about to create booking..");
+		boolean success = db.createOrder(booking);
+		return success;
+	}
+
+	@Override
+	public boolean deleteBooking(String bookingID) throws RemoteException, SQLException {
+		System.out.println("about to delete booking..");
+		return db.deleteOrder(bookingID);
 	}
 
 	@Override
 	public boolean updateBooking(RentalOrder booking) throws RemoteException {
-		// TODO Auto-generated method stub
+		System.out.println("about to update booking..");
+		try {
+			return db.updateOrder(booking);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
-	
-
-		
 }

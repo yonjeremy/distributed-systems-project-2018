@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "lastName",
     "addressSID"
 })
-public class Customer {
+public class Customer implements Serializable{
 
     @XmlElement(namespace = "http://sw.gmit.ie/model/", required = true)
     protected String firstName;
@@ -54,7 +56,20 @@ public class Customer {
     @XmlAttribute(name = "customer_SID")
     protected String customerSID;
 
-    /**
+    public Customer(String firstName, String lastName, Address addressSID, String customerSID) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.addressSID = addressSID;
+		this.customerSID = customerSID;
+	}
+
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Gets the value of the firstName property.
      * 
      * @return

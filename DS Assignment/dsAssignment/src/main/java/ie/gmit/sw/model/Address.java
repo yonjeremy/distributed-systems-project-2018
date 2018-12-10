@@ -8,6 +8,8 @@
 
 package ie.gmit.sw.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "city",
     "county"
 })
-public class Address {
+public class Address implements Serializable{
 
     @XmlElement(namespace = "http://sw.gmit.ie/model/", required = true)
     protected String street;
@@ -54,7 +56,24 @@ public class Address {
     @XmlAttribute(name = "address_SID")
     protected String addressSID;
 
-    /**
+    public Address() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
+    
+
+	public Address(String street, String city, String county, String addressSID) {
+		super();
+		this.street = street;
+		this.city = city;
+		this.county = county;
+		this.addressSID = addressSID;
+	}
+
+
+
+	/**
      * Gets the value of the street property.
      * 
      * @return
